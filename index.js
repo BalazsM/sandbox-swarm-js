@@ -115,7 +115,7 @@ class Drone {
 			this.lastHeartbeatTime = simulationTime;
 		}
 
-		if (simulationPacketInTransmit > 1) {
+		if (this.rxQueue.length > 0 && simulationPacketInTransmit > 1) {
 			simulationPacketCollosions++;
 			this.rxQueue.length = 0;
 		} else if (simulationPacketInTransmit == 1) {
