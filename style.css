@@ -1,16 +1,9 @@
-:root {
-	--base: #2f86c9;
-	--foreColor: #ffffff;
-	--title-font: "Lexend Deca", Helvetica, sans-serif;
-	--text-font: "Open Sans", Helvetica, sans-serif;
-}
-
 html, body {
 	margin: 0;
 	padding: 0;
 
 	font-size: 16px;
-	font-family: var(--text-font);
+	font-family: var(sans-serif);
 	color: #eee;
 
 	background-color: #1d1c25;
@@ -25,13 +18,12 @@ canvas {
 h3,
 h4,
 h5 {
-	font-family: var(--title-font);
+	font-family: var(sans-serif);
 	letter-spacing: 2px;
 	filter: drop-shadow(0 0 5px #fff6);
 }
 
 a {
-	color: var(--foreColor);
 	text-decoration: none;
 }
 

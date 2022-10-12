@@ -117,6 +117,7 @@ class Drone {
 
 		if (simulationPacketInTransmit > 1) {
 			simulationPacketCollosions++;
+			this.rxQueue.length = 0;
 		} else if (simulationPacketInTransmit == 1) {
 			while (this.rxQueue.length > 0) {
 				let packet = this.rxQueue.shift();
