@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/0.7.2/p5.min.js"></script>
+		<script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/0.7.2/addons/p5.dom.min.js"></script>
+		<script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/0.7.2/addons/p5.sound.min.js"></script>
+		<link rel="stylesheet" type="text/css" href="style.css">
+		<meta charset="utf-8" />
+	</head>
+	<body>
+    	<script src="index.js"></script>
+
+		<div id="workspace"></div>
+
+		<div id="properties" class="sidebar">
+			<h3>Simple communication simulation</h3>
+
+			<div><input type="button" onclick="addDrone()" value="Add Drone" /></div>
+
+			<div id="droneDataDiv">
+				<h4>Selected drone data</h4>
+				<table>
+					<tr><td>Id:</td><td id="droneIdDisplay"></td></tr>
+					<tr><td>State:</td><td id="droneStateDisplay"></td></tr>
+					<tr><td>Position:</td><td id="dronePositionDisplay"></td></tr>
+					<tr><td>Target:</td><td id="droneTargetDisplay"></td></tr>
+					<tr><td>Charge:</td><td id="droneChargeDisplay"></td></tr>
+					<tr><td>Siblings:</td><td id="droneSiblingsCountDisplay"></td></tr>
+				</table>
+			</div>
+
+			<h4>Simulation stats</h4>
+			<table>
+				<tr><td>Time:</td><td  id="simulationTimeDisplay"></td></tr>
+				<tr><td>Packets sent:</td><td  id="simulationPacketsSentDisplay"></td></tr>
+				<tr><td>Packet losses:</td><td  id="simulationPacketLossesDisplay"></td></tr>
+				<tr><td>Packet collosions:</td><td  id="simulationPacketCollosionsDisplay"></td></tr>
+				<tr><td>Drone collosions:</td><td  id="simulationDroneCollosionsDisplay"></td></tr>
+			</table>
+
+			<h4>Simulation options</h4>
+			<div>
+				<label for="simulationPacketLossRatioInput">Packet loss ratio: <output id="simulationPacketLossRatioOutput"></output></label>
+				<input type="range" id="simulationPacketLossRatioInput" min="1" max="100" value="10" 
+					oninput="simulationPacketLossRatioOutput.value = simulationPacketLossRatioInput.value + '%'">
+			</div>  
+
+			<div>
+				<label for="droneHearthbeatIntervalInput">Hearthbeat interval: <output id="droneHearthbeatIntervalOutput"></output></label>
+				<input type="range" id="droneHearthbeatIntervalInput" min="1" max="100" value="10" 
+					oninput="droneHearthbeatIntervalOutput.value = droneHearthbeatIntervalInput.value">
+			</div>  
+
+			<div>
+				<label for="droneMinDistanceInput">Min distance: <output id="droneMinDistanceOutput"></output></label>
+				<input type="range" id="droneMinDistanceInput" min="0" max="500" value="50" 
+					oninput="droneMinDistanceOutput.value = droneMinDistanceInput.value">
+			</div>  
+
+			<div>
+				<label for="droneRadioRangeInput">Radio range: <output id="droneRadioRangeOutput"></output></label>
+				<input type="range" id="droneRadioRangeInput" min="0" max="500" value="200" 
+					oninput="droneRadioRangeOutput.value = droneRadioRangeInput.value">
+			</div>  
+
+			<div>
+				<label for="droneMaxSpeedInput">Max speed: <output id="droneMaxSpeedOutput"></output></label>
+				<input type="range" id="droneMaxSpeedInput" min="0" max="3" step="0.05" value="1" 
+					oninput="droneMaxSpeedOutput.value = droneMaxSpeedInput.value">
+			</div>  
+
+			<div>
+				<label for="droneDischargeRateInput">Discharge rate: <output id="droneDischargeRateOutput"></output></label>
+				<input type="range" id="droneDischargeRateInput" min="0" max="0.5" step="0.01" value="0.05" 
+					oninput="droneDischargeRateOutput.value = droneDischargeRateInput.value">
+			</div>  
+
+			<h4>Display options</h4>
+			<div>
+				<input type="checkbox" id="droneShowMinDistance">
+				<label for="droneShowMinDistance">Show min distance</label>
+			</div>
+
+			<div>
+				<input type="checkbox" id="droneShowRadioRange">
+				<label for="droneShowRadioRange">Show radio range</label>
+			</div>
+
+			<div>
+				<input type="checkbox" id="droneShowTarget" checked>
+				<label for="droneShowTarget">Show target</label>
+			</div>
+
+			<div>
+				<input type="checkbox" id="droneShowPatrolTrack">
+				<label for="droneShowPatrolTrack">Show patrol track</label>
+			</div>
+		</div>
+	</body>
+</html>
