@@ -15,6 +15,8 @@
 		<div id="properties" class="sidebar">
 			<h3>Simple communication simulation</h3>
 
+			<p><a href="https://github.com/BalazsM/sandbox-comsim">source code</a></p>
+
 			<div><input type="button" onclick="addDrone()" value="Add Drone" /></div>
 
 			<div id="droneDataDiv">
@@ -31,6 +33,7 @@
 
 			<h4>Simulation stats</h4>
 			<table>
+				<tr><td>FPS:</td><td  id="simulationFPSDisplay"></td></tr>
 				<tr><td>Time:</td><td  id="simulationTimeDisplay"></td></tr>
 				<tr><td>Packets sent:</td><td  id="simulationPacketsSentDisplay"></td></tr>
 				<tr><td>Packet losses:</td><td  id="simulationPacketLossesDisplay"></td></tr>

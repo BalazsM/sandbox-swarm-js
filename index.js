@@ -356,6 +356,7 @@ function updateGlobals() {
 }
 
 function updateDisplays() {
+	simulationFPSDisplay.innerHTML = frameRate().toFixed(2);
 	simulationTimeDisplay.innerHTML = simulationTime;
 	simulationPacketsSentDisplay.innerHTML = simulationPacketsSent;
 	simulationPacketLossesDisplay.innerHTML = simulationPacketLosses;
