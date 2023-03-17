@@ -1,3 +1,8 @@
+// TODO: move into swarm-js repo
+// TODO: right align table data
+// TODO: simulation speed slider
+// TODO: accordion
+// TODO: update globals
 
 // code based on:
 //     https://thecodingtrain.com/challenges/124-flocking-simulation
@@ -366,7 +371,7 @@ function updateDisplays() {
 
 	if (selectedDrone)
 	{
-		droneDataDiv.style.display = '';
+		droneDataDiv.style.display = null;
 		droneIdDisplay.innerHTML = selectedDrone.id;
 		droneStateDisplay.innerHTML = selectedDrone.state;
 		dronePositionDisplay.innerHTML = formatVector(selectedDrone.position);
