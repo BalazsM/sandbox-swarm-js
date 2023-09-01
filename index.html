@@ -6,11 +6,7 @@
 		<title>Swarm</title>
 
 		<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-GLhlTQ8iRABdZLl6O3oVMWSktQOp6b7In1Zl3/Jr59b6EGGoI1aFkw7cmDA6j6gD" crossorigin="anonymous">
-		<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js" integrity="sha384-w76AqPfDkMBDXo30jS1Sgez6pr3x5MlQ1ZAGC+nuZB+EYdgRZgiwxhTBTkF7CXvN" crossorigin="anonymous"></script>
-		<script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/0.7.2/p5.min.js"></script>
-
 		<link rel="stylesheet" type="text/css" href="style.css">
-    	<script src="index.js"></script>
 	</head>
 	<body>
 		<div id="workspace" class="z-0"></div>
@@ -112,22 +108,22 @@
 
 					<tr>
 						<td>Radio range</td>
-						<td id="droneRadioRangeOutput" class="text-end"></td>
 						<td class="text-end"><input type="range" id="droneRadioRangeInput" class="form-range" min="0" max="500" value="200" 
 							oninput="droneRadioRangeOutput.innerHTML = droneRadioRangeInput.value"></td>
+						<td id="droneRadioRangeOutput" class="text-end"></td>
 					</tr>
 
 					<tr>
 						<td>Max speed</td>
-						<td id="droneMaxSpeedOutput" class="text-end"></td>
 						<td class="text-end"><input type="range" id="droneMaxSpeedInput" class="form-range" min="0" max="3" step="0.05" value="1" 
 							oninput="droneMaxSpeedOutput.innerHTML = droneMaxSpeedInput.value"></td>
+						<td id="droneMaxSpeedOutput" class="text-end"></td>
 					</tr>
 					<tr>
 						<td>Discharge rate</td>
-						<td id="droneDischargeRateOutput" class="text-end"></td>
 						<td class="text-end"><input type="range" id="droneDischargeRateInput" class="form-range" min="0" max="0.5" step="0.01" value="0.05" 
 							oninput="droneDischargeRateOutput.innerHTML = droneDischargeRateInput.value"></td>
+						<td id="droneDischargeRateOutput" class="text-end"></td>
 					</tr>
 				</table>
 
@@ -153,5 +149,14 @@
 				</table>
 			<div>
 		</div>
+
+		<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js" integrity="sha384-w76AqPfDkMBDXo30jS1Sgez6pr3x5MlQ1ZAGC+nuZB+EYdgRZgiwxhTBTkF7CXvN" crossorigin="anonymous"></script>
+		<script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/0.7.2/p5.min.js"></script>
+    	<script src="js/astar.js"></script>
+    	<script src="js/map.js"></script>
+    	<script src="js/drone.js"></script>
+    	<script src="js/simulation.js"></script>
+    	<script src="js/view.js"></script>
+    	<script src="js/main.js"></script>
 	</body>
 </html>
