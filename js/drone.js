@@ -118,7 +118,7 @@ class Drone {
 			let x = this.position.x;
 			let y = this.position.y;
 			for (let i = 0; i < 100; i++) {
-				globalMap.set(x, y);
+				obstacleMap.set(x, y);
 				x += dx;
 				y += dy;
 			}

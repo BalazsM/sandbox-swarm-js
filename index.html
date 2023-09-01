@@ -3,157 +3,172 @@
 	<head>
 		<meta charset="utf-8" />
 		<meta name="viewport" content="width=device-width, initial-scale=1">
-		<title>Swarm</title>
 
-		<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-GLhlTQ8iRABdZLl6O3oVMWSktQOp6b7In1Zl3/Jr59b6EGGoI1aFkw7cmDA6j6gD" crossorigin="anonymous">
+		<title>Swarm simulation</title>
+
+		<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/css/bootstrap.min.css" rel="stylesheet">
 		<link rel="stylesheet" type="text/css" href="style.css">
 	</head>
 	<body>
 		<div id="workspace" class="z-0"></div>
 
-		<div class="d-flex flex-column flex-shrink-0 m-2 ms-auto h-100 z-1 card opacity-75" style="width: 400px;">
-			<div class="card-body">
-				<span class="display-6">Swarm</span>
+		<nav class="navbar bg-body-tertiary">
+			<div class="container-fluid">
+				<a class="navbar-brand" href="#">Swarm</a>
 
 				<div class="d-flex justify-content-center m-2">
 					<div><a href="https://cubie.hu" class="link-secondary m-2">2023 cuBie</a></div>
 					<div><a href="https://github.com/BalazsM/sandbox-swarm-js" class="link-primary m-2">source code</a></div>
 				</div>
+				
+				<a class="btn" data-bs-toggle="collapse" href="#settings" role="button">
+					<svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" fill="currentColor" class="bi bi-sliders" viewBox="0 0 16 16">
+						<path fill-rule="evenodd" d="M11.5 2a1.5 1.5 0 1 0 0 3 1.5 1.5 0 0 0 0-3zM9.05 3a2.5 2.5 0 0 1 4.9 0H16v1h-2.05a2.5 2.5 0 0 1-4.9 0H0V3h9.05zM4.5 7a1.5 1.5 0 1 0 0 3 1.5 1.5 0 0 0 0-3zM2.05 8a2.5 2.5 0 0 1 4.9 0H16v1H6.95a2.5 2.5 0 0 1-4.9 0H0V8h2.05zm9.45 4a1.5 1.5 0 1 0 0 3 1.5 1.5 0 0 0 0-3zm-2.45 1a2.5 2.5 0 0 1 4.9 0H16v1h-2.05a2.5 2.5 0 0 1-4.9 0H0v-1h9.05z"/>
+					</svg>
+				</a>
+			</div>
+		</nav>
 
-				<div class="m-2"><input type="button" onclick="addDrone()" value="Add Drone" /></div>
+		<div id="settings" class="collapse">
+			<div class="card d-flex flex-column flex-shrink-0 m-2 ms-auto h-100 z-1 opacity-75" style="max-width: 400px; overflow-y: auto">
+				<div class="card-body">
 
-				<div id="droneDataDiv">
-					<h5>Selected drone data</h5>
+
+					<div class="m-2"><input type="button" onclick="addDrone()" value="Add Drone" /></div>
+
+					<div id="droneDataDiv">
+						<h5>Selected drone data</h5>
+
+						<table class="table table-sm">
+							<tr>
+								<td>Id</td>
+								<td id="droneIdDisplay" class="text-end"></td>
+							</tr>
+							<tr>
+								<td>State</td>
+								<td id="droneStateDisplay" class="text-end"></td>
+							</tr>
+							<tr>
+								<td>Position</td>
+								<td id="dronePositionDisplay" class="text-end"></td>
+							</tr>
+							<tr>
+								<td>Target</td>
+								<td id="droneTargetDisplay" class="text-end"></td>
+							</tr>
+							<tr>
+								<td>Charge</td>
+								<td id="droneChargeDisplay" class="text-end"></td>
+							</tr>
+							<tr>
+								<td>Siblings</td>
+								<td id="droneSiblingsCountDisplay" class="text-end"></td>
+							</tr>
+						</table>
+					</div>
+
+					<h5>Simulation stats</h5>
 
 					<table class="table table-sm">
 						<tr>
-							<td>Id</td>
-							<td id="droneIdDisplay" class="text-end"></td>
+							<td>FPS</td>
+							<td id="simulationFPSDisplay" class="text-end"></td>
 						</tr>
 						<tr>
-							<td>State</td>
-							<td id="droneStateDisplay" class="text-end"></td>
+							<td>Time</td>
+							<td id="simulationTimeDisplay" class="text-end"></td>
 						</tr>
 						<tr>
-							<td>Position</td>
-							<td id="dronePositionDisplay" class="text-end"></td>
+							<td>Packets sent</td>
+							<td id="simulationPacketsSentDisplay" class="text-end"></td>
 						</tr>
 						<tr>
-							<td>Target</td>
-							<td id="droneTargetDisplay" class="text-end"></td>
+							<td>Packet losses</td>
+							<td id="simulationPacketLossesDisplay" class="text-end"></td>
 						</tr>
 						<tr>
-							<td>Charge</td>
-							<td id="droneChargeDisplay" class="text-end"></td>
+							<td>Packet collosions</td>
+							<td id="simulationPacketCollosionsDisplay" class="text-end"></td>
 						</tr>
 						<tr>
-							<td>Siblings</td>
-							<td id="droneSiblingsCountDisplay" class="text-end"></td>
+							<td>Drone collosions</td>
+							<td id="simulationDroneCollosionsDisplay" class="text-end"></td>
 						</tr>
 					</table>
-				</div>
 
-				<h5>Simulation stats</h5>
+					<h5>Simulation options</h5>
 
-				<table class="table table-sm">
-					<tr>
-						<td>FPS</td>
-						<td id="simulationFPSDisplay" class="text-end"></td>
-					</tr>
-					<tr>
-						<td>Time</td>
-						<td id="simulationTimeDisplay" class="text-end"></td>
-					</tr>
-					<tr>
-						<td>Packets sent</td>
-						<td id="simulationPacketsSentDisplay" class="text-end"></td>
-					</tr>
-					<tr>
-						<td>Packet losses</td>
-						<td id="simulationPacketLossesDisplay" class="text-end"></td>
-					</tr>
-					<tr>
-						<td>Packet collosions</td>
-						<td id="simulationPacketCollosionsDisplay" class="text-end"></td>
-					</tr>
-					<tr>
-						<td>Drone collosions</td>
-						<td id="simulationDroneCollosionsDisplay" class="text-end"></td>
-					</tr>
-				</table>
+					<table class="table table-sm">
+						<tr>
+							<td>Packet loss ratio</td>
+							<td id="simulationPacketLossRatioOutput" class="text-end"></td>
+							<td class="text-end"><input type="range" id="simulationPacketLossRatioInput" class="form-range" min="0" max="100" value="10" step="0.1"
+								oninput="simulationPacketLossRatioOutput.innerHTML = simulationPacketLossRatioInput.value + '%'"></td>
+						</tr>
 
-				<h5>Simulation options</h5>
+						<tr>
+							<td>Hearthbeat interval</td>
+							<td id="droneHearthbeatIntervalOutput" class="text-end"></td>
+							<td class="text-end"><input type="range" id="droneHearthbeatIntervalInput" class="form-range" min="1" max="100" value="10" 
+								oninput="droneHearthbeatIntervalOutput.innerHTML = droneHearthbeatIntervalInput.value"></td>
+						</tr>
 
-				<table class="table table-sm">
-					<tr>
-						<td>Packet loss ratio</td>
-						<td id="simulationPacketLossRatioOutput" class="text-end"></td>
-						<td class="text-end"><input type="range" id="simulationPacketLossRatioInput" class="form-range" min="0" max="100" value="10" step="0.1"
-							oninput="simulationPacketLossRatioOutput.innerHTML = simulationPacketLossRatioInput.value + '%'"></td>
-					</tr>
+						<tr>
+							<td>Min distance</td>
+							<td id="droneMinDistanceOutput" class="text-end"></td>
+							<td class="text-end"><input type="range" id="droneMinDistanceInput" class="form-range" min="0" max="500" value="50" 
+								oninput="droneMinDistanceOutput.innerHTML = droneMinDistanceInput.value"></td>
+						</tr>
 
-					<tr>
-						<td>Hearthbeat interval</td>
-						<td id="droneHearthbeatIntervalOutput" class="text-end"></td>
-						<td class="text-end"><input type="range" id="droneHearthbeatIntervalInput" class="form-range" min="1" max="100" value="10" 
-							oninput="droneHearthbeatIntervalOutput.innerHTML = droneHearthbeatIntervalInput.value"></td>
-					</tr>
+						<tr>
+							<td>Radio range</td>
+							<td class="text-end"><input type="range" id="droneRadioRangeInput" class="form-range" min="0" max="500" value="200" 
+								oninput="droneRadioRangeOutput.innerHTML = droneRadioRangeInput.value"></td>
+							<td id="droneRadioRangeOutput" class="text-end"></td>
+						</tr>
 
-					<tr>
-						<td>Min distance</td>
-						<td id="droneMinDistanceOutput" class="text-end"></td>
-						<td class="text-end"><input type="range" id="droneMinDistanceInput" class="form-range" min="0" max="500" value="50" 
-							oninput="droneMinDistanceOutput.innerHTML = droneMinDistanceInput.value"></td>
-					</tr>
+						<tr>
+							<td>Max speed</td>
+							<td class="text-end"><input type="range" id="droneMaxSpeedInput" class="form-range" min="0" max="3" step="0.05" value="1" 
+								oninput="droneMaxSpeedOutput.innerHTML = droneMaxSpeedInput.value"></td>
+							<td id="droneMaxSpeedOutput" class="text-end"></td>
+						</tr>
+						<tr>
+							<td>Discharge rate</td>
+							<td class="text-end"><input type="range" id="droneDischargeRateInput" class="form-range" min="0" max="0.5" step="0.01" value="0.05" 
+								oninput="droneDischargeRateOutput.innerHTML = droneDischargeRateInput.value"></td>
+							<td id="droneDischargeRateOutput" class="text-end"></td>
+						</tr>
+					</table>
 
-					<tr>
-						<td>Radio range</td>
-						<td class="text-end"><input type="range" id="droneRadioRangeInput" class="form-range" min="0" max="500" value="200" 
-							oninput="droneRadioRangeOutput.innerHTML = droneRadioRangeInput.value"></td>
-						<td id="droneRadioRangeOutput" class="text-end"></td>
-					</tr>
-
-					<tr>
-						<td>Max speed</td>
-						<td class="text-end"><input type="range" id="droneMaxSpeedInput" class="form-range" min="0" max="3" step="0.05" value="1" 
-							oninput="droneMaxSpeedOutput.innerHTML = droneMaxSpeedInput.value"></td>
-						<td id="droneMaxSpeedOutput" class="text-end"></td>
-					</tr>
-					<tr>
-						<td>Discharge rate</td>
-						<td class="text-end"><input type="range" id="droneDischargeRateInput" class="form-range" min="0" max="0.5" step="0.01" value="0.05" 
-							oninput="droneDischargeRateOutput.innerHTML = droneDischargeRateInput.value"></td>
-						<td id="droneDischargeRateOutput" class="text-end"></td>
-					</tr>
-				</table>
-
-				<h5>Display options</h5>
-			
-				<table class="table table-sm">
-					<tr>
-						<td>Show min distance</td>
-						<td class="text-end"><input type="checkbox" id="droneShowMinDistance"></td>
-					</tr>
-					<tr>
-						<td>Show radio range</td>
-						<td class="text-end"><input type="checkbox" id="droneShowRadioRange"></td>
-					</tr>
-					<tr>
-						<td>Show target</td>
-						<td class="text-end"><input type="checkbox" id="droneShowTarget" checked></td>
-					</tr>
-					<tr>
-						<td>Show patrol track</td>
-						<td class="text-end"><input type="checkbox" id="droneShowPatrolTrack"></td>
-					</tr>
-				</table>
-			<div>
+					<h5>Display options</h5>
+				
+					<table class="table table-sm">
+						<tr>
+							<td>Show min distance</td>
+							<td class="text-end"><input type="checkbox" id="droneShowMinDistance"></td>
+						</tr>
+						<tr>
+							<td>Show radio range</td>
+							<td class="text-end"><input type="checkbox" id="droneShowRadioRange"></td>
+						</tr>
+						<tr>
+							<td>Show target</td>
+							<td class="text-end"><input type="checkbox" id="droneShowTarget" checked></td>
+						</tr>
+						<tr>
+							<td>Show patrol track</td>
+							<td class="text-end"><input type="checkbox" id="droneShowPatrolTrack"></td>
+						</tr>
+					</table>
+				<div>
+			</div>
 		</div>
 
-		<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js" integrity="sha384-w76AqPfDkMBDXo30jS1Sgez6pr3x5MlQ1ZAGC+nuZB+EYdgRZgiwxhTBTkF7CXvN" crossorigin="anonymous"></script>
+		<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/js/bootstrap.bundle.min.js"></script>
 		<script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/0.7.2/p5.min.js"></script>
     	<script src="js/astar.js"></script>
-    	<script src="js/map.js"></script>
+    	<script src="js/obstaclemap.js"></script>
     	<script src="js/drone.js"></script>
     	<script src="js/simulation.js"></script>
     	<script src="js/view.js"></script>

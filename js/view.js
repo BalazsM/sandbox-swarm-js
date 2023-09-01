@@ -17,7 +17,7 @@ class View {
 		for (let home of homes)
 			drawHome(home);
 	
-		this.drawMap(globalMap);
+		this.drawMap(obstacleMap);
 	
 		for (let drone of drones)
 			this.drawDrone(drone);

@@ -8,7 +8,7 @@
 
 const homes = [];
 const drones = [];
-const globalMap = new Map(200, 200, 10);
+const obstacleMap = new ObstacleMap(200, 200, 10);
 
 const view = new View();
 // let workspaceLocked = false;

@@ -53,6 +53,6 @@ class Simulation {
 			}
 		}
 
-		globalMap.update();
+		obstacleMap.update();
 	}
 }

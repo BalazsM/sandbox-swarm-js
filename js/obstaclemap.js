@@ -1,4 +1,4 @@
-class Map {
+class ObstacleMap {
 	constructor(width, height, resolution) {
 		this.width = width;
 		this.height = height;
