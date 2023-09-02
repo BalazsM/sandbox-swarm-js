@@ -141,6 +141,17 @@ function draw() {
 	updateDisplays();
 }
 
+function openFullscreen() {
+	const e = document.documentElement;
+	if (e.requestFullscreen) {
+		e.requestFullscreen();
+	} else if (e.webkitRequestFullscreen) { /* Safari */
+		e.webkitRequestFullscreen();
+	} else if (e.msRequestFullscreen) { /* IE11 */
+		e.msRequestFullscreen();
+	}
+}
+
 // ---------------------------------------------------------------------------
 
 function formatVector(vector) {

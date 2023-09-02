@@ -23,10 +23,15 @@
 				</div>
 				
 				<div>
-					<a class="btn" role="button" onclick="document.documentElement.requestFullscreen();">
+					<a class="btn" role="button" onclick="openFullscreen();">
 						<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="currentColor" class="bi bi-fullscreen" viewBox="0 0 16 16">
 							<path d="M1.5 1a.5.5 0 0 0-.5.5v4a.5.5 0 0 1-1 0v-4A1.5 1.5 0 0 1 1.5 0h4a.5.5 0 0 1 0 1h-4zM10 .5a.5.5 0 0 1 .5-.5h4A1.5 1.5 0 0 1 16 1.5v4a.5.5 0 0 1-1 0v-4a.5.5 0 0 0-.5-.5h-4a.5.5 0 0 1-.5-.5zM.5 10a.5.5 0 0 1 .5.5v4a.5.5 0 0 0 .5.5h4a.5.5 0 0 1 0 1h-4A1.5 1.5 0 0 1 0 14.5v-4a.5.5 0 0 1 .5-.5zm15 0a.5.5 0 0 1 .5.5v4a1.5 1.5 0 0 1-1.5 1.5h-4a.5.5 0 0 1 0-1h4a.5.5 0 0 0 .5-.5v-4a.5.5 0 0 1 .5-.5z"/>
 						</svg>				
+					</a>
+					<a class="btn" data-bs-toggle="offcanvas" href="#helpOffcanvas" role="button">
+						<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="currentColor" class="bi bi-question" viewBox="0 0 16 16">
+							<path d="M5.255 5.786a.237.237 0 0 0 .241.247h.825c.138 0 .248-.113.266-.25.09-.656.54-1.134 1.342-1.134.686 0 1.314.343 1.314 1.168 0 .635-.374.927-.965 1.371-.673.489-1.206 1.06-1.168 1.987l.003.217a.25.25 0 0 0 .25.246h.811a.25.25 0 0 0 .25-.25v-.105c0-.718.273-.927 1.01-1.486.609-.463 1.244-.977 1.244-2.056 0-1.511-1.276-2.241-2.673-2.241-1.267 0-2.655.59-2.75 2.286zm1.557 5.763c0 .533.425.927 1.01.927.609 0 1.028-.394 1.028-.927 0-.552-.42-.94-1.029-.94-.584 0-1.009.388-1.009.94z"/>
+						  </svg>
 					</a>
 					<a class="btn" data-bs-toggle="offcanvas" href="#settingsOffcanvas" role="button">
 						<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="currentColor" class="bi bi-sliders" viewBox="0 0 16 16">
@@ -39,7 +44,7 @@
 
 		<!--  settings  ------------------------------------------------------>
 
-		<div class="offcanvas offcanvas-end" tabindex="-1" id="settingsOffcanvas" aria-labelledby="settingsOffcanvasLabel">
+		<div id="settingsOffcanvas" class="offcanvas offcanvas-end" tabindex="-1" aria-labelledby="settingsOffcanvasLabel">
 			<div class="offcanvas-header">
 				<h5 class="offcanvas-title" id="settingsOffcanvasLabel">Settings</h5>
 				<button type="button" class="btn-close" data-bs-dismiss="offcanvas" aria-label="Close"></button>
@@ -163,6 +168,17 @@
 						<td class="text-end"><input type="checkbox" id="droneShowPatrolTrack" colspan="2"></td>
 					</tr>
 				</table>
+			</div>
+		</div>
+
+		<!--  help  ------------------------------------------------------>
+
+		<div id="helpOffcanvas" class="offcanvas offcanvas-end" tabindex="-1" aria-labelledby="settingsOffcanvasLabel">
+			<div class="offcanvas-header">
+				<h5 class="offcanvas-title" id="settingsOffcanvasLabel">Help</h5>
+				<button type="button" class="btn-close" data-bs-dismiss="offcanvas" aria-label="Close"></button>
+			</div>
+			<div class="offcanvas-body">
 			</div>
 		</div>
 
