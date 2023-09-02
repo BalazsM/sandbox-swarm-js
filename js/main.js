@@ -114,10 +114,10 @@ function mousePressed() {
 }
 
 function mouseDragged() {
-	if (view.locked) {
-		view.deltaX = mouseX - view.offsetX;
-		view.deltaY = mouseY - view.offsetY;
-	}
+	// if (view.locked) {
+	// 	view.deltaX = mouseX - view.offsetX;
+	// 	view.deltaY = mouseY - view.offsetY;
+	// }
 
 //	return false;
 }
