@@ -14,6 +14,8 @@ class Simulation {
 		this.time++;
 		this.packetInTransmit = 0;
 
+		obstacleMap.update();
+
 		for (let sender of drones) {
 			if (sender.state == 'dead' || sender.txQueue.length == 0)
 				continue;
@@ -52,7 +54,5 @@ class Simulation {
 					}
 			}
 		}
-
-		obstacleMap.update();
 	}
 }

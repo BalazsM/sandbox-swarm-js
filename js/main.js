@@ -1,23 +1,13 @@
-// TODO: move into drones-js repo
+// TODO: obstacle map resolution slider
 // TODO: simulation speed slider
-// TODO: accordion
 // TODO: update globals
-
-// code based on:
-//     https://thecodingtrain.com/challenges/124-flocking-simulation
+// TODO: config class
+// TODO: fade out deads
 
 const homes = [];
 const drones = [];
 const obstacleMap = new ObstacleMap(200, 200, 10);
-
 const view = new View();
-// let workspaceLocked = false;
-// let workspaceDeltaX = 0.0;
-// let workspaceDeltaY = 0.0;
-// let workspaceOffsetX = 0.0;
-// let workspaceOffsetY = 0.0;
-// let workspaceZoom = 1.0;
-
 const simulation = new Simulation();
 
 let droneMinDistance;
@@ -36,9 +26,6 @@ class Home {
 	}
 }
 
-// ---------------------------------------------------------------------------
-
-  
 // ---------------------------------------------------------------------------
 
 class Packet {
@@ -77,7 +64,7 @@ function setup() {
 			height / 2.0 + sin(i / (5 / (2.0 * PI))) * 300.0));
 	}
 
-	for (let i = 0; i < 12; i++)
+	for (let i = 0; i < 2; i++)
 		setTimeout(() => {
 			addDrone();
 		}, i * 1000);
@@ -141,14 +128,11 @@ function draw() {
 	updateDisplays();
 }
 
-function openFullscreen() {
-	const e = document.documentElement;
-	if (e.requestFullscreen) {
-		e.requestFullscreen();
-	} else if (e.webkitRequestFullscreen) { /* Safari */
-		e.webkitRequestFullscreen();
-	} else if (e.msRequestFullscreen) { /* IE11 */
-		e.msRequestFullscreen();
+function toggleFullscreen() {
+	if (!document.fullscreenElement) {
+		document.documentElement.requestFullscreen();
+	} else if (document.exitFullscreen) {
+		document.exitFullscreen();
 	}
 }
 
@@ -200,8 +184,6 @@ function updateDisplays() {
 }
 
 // --  draw funtions  --------------------------------------------------------
-
-
 
 function drawHome(home) {
 	push();

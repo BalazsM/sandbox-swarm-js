@@ -110,19 +110,29 @@ class Drone {
 	}
 
 	doSteering() {
-		if (this.state != 'dead') {
-			// TODO: do a* search and reservation
+		if (this.state == 'dead')
+			return;
 
-			const dx = (this.target.x - this.position.x) / 100.0;
-			const dy = (this.target.y - this.position.y) / 100.0;
-			let x = this.position.x;
-			let y = this.position.y;
-			for (let i = 0; i < 100; i++) {
-				obstacleMap.set(x, y);
-				x += dx;
-				y += dy;
-			}
+			// TODO: do a* search and reservation
+		let path = this.computePath(obstacleMap, 
+			this.position.x,
+			this.position.y,
+			this.target.x,
+			this.target.y);
+		for (let cell of path) {
+			obstacleMap.set2(cell.x, cell.y); // TODO: r (3) compute from drone's min distance
 		}
+/*			
+		const dx = (this.target.x - this.position.x) / 100.0;
+		const dy = (this.target.y - this.position.y) / 100.0;
+		let x = this.position.x;
+		let y = this.position.y;
+		for (let i = 0; i < 100; i++) {
+			obstacleMap.set(x, y, 1); // TODO: r (3) compute from drone's min distance
+			x += dx;
+			y += dy;
+		}
+*/
 
 		var desired = p5.Vector.sub(this.target, this.position);
 		var d = desired.mag();
@@ -156,6 +166,117 @@ class Drone {
 		if (this.charge < 0.0) {
 			this.charge = 0.0;
 			this.state = 'dead';
+		}
+	}
+
+	computePath(
+		obstacleMap,
+		startX, // TODO: mapVector
+		startY,
+		endX,
+		endY) {
+
+		let startCell = null;
+		let endCell = null;
+
+		let result = new Array();
+	
+		for (let i = 0; i < obstacleMap.width; i++) {
+			for (let j = 0; j < obstacleMap.height; j++) {
+				let cell = obstacleMap.cells[i][j];
+				cell.f = 0;
+				cell.g = 0;
+				cell.previous = null;
+			}
+		}
+
+		const sx = Math.round(startX / obstacleMap.resolution);
+		const sy = Math.round(startY / obstacleMap.resolution);
+		const ex = Math.round(endX / obstacleMap.resolution);
+		const ey = Math.round(endY / obstacleMap.resolution);
+		startCell = obstacleMap.cells[sx][sy];
+		startCell.locked = false;
+		endCell = obstacleMap.cells[ex][ey];
+		endCell.locked = false;
+	
+		const openSet = new Array();
+		const closedSet = new Array();
+		openSet.push(startCell);
+		
+		let currentCell = null;
+	
+		while (openSet.length > 0) {
+			currentCell = openSet[0];
+			for (let cell of openSet) {
+				if (cell.f < currentCell.f) {
+					currentCell = cell;
+				}
+			}
+		
+			if (currentCell === endCell)
+				break;
+	
+			openSet.splice(openSet.indexOf(currentCell), 1);
+			closedSet.push(currentCell);
+	
+//			-1 -1 |  0 -1 | +1 -1
+//			-1  0 |  0  0 | +1  0
+//			-1 +1 |  0 +1 | +1 +1
+
+			if (currentCell.x > 0)
+				this.computePathX(obstacleMap.cells[currentCell.x - 1][currentCell.y], currentCell, endCell, openSet, closedSet);
+			if (currentCell.x > 0 && currentCell.y > 0)
+				this.computePathX(obstacleMap.cells[currentCell.x - 1][currentCell.y - 1], currentCell, endCell, openSet, closedSet);
+			if (currentCell.y > 0)
+				this.computePathX(obstacleMap.cells[currentCell.x][currentCell.y - 1], currentCell, endCell, openSet, closedSet);
+			if (currentCell.x < obstacleMap.width - 1 && currentCell.y > 0)
+				this.computePathX(obstacleMap.cells[currentCell.x + 1][currentCell.y - 1], currentCell, endCell, openSet, closedSet);
+			if (currentCell.x < obstacleMap.width - 1)
+				this.computePathX(obstacleMap.cells[currentCell.x + 1][currentCell.y], currentCell, endCell, openSet, closedSet);
+			if (currentCell.x < obstacleMap.width - 1 && currentCell.y < obstacleMap.height - 1)
+				this.computePathX(obstacleMap.cells[currentCell.x + 1][currentCell.y + 1], currentCell, endCell, openSet, closedSet);
+			if (currentCell.y < obstacleMap.height - 1)
+				this.computePathX(obstacleMap.cells[currentCell.x][currentCell.y + 1], currentCell, endCell, openSet, closedSet);
+			if (currentCell.x > 0 && currentCell.y < obstacleMap.height - 1)
+				this.computePathX(obstacleMap.cells[currentCell.x - 1][currentCell.y + 1], currentCell, endCell, openSet, closedSet);
+		}
+	
+		if (currentCell === endCell) {
+			let temp = currentCell;
+			result.push(temp);
+			while (temp.previous) {
+				result.unshift(temp.previous);
+				temp = temp.previous;
+			}
+		}
+		
+//		console.log(sx, sy, ex, ey, result.length);
+		return result;
+	}	
+
+	computePathX(cell, currentCell, endCell, openSet, closedSet) {
+		// Valid next spot?
+		if (closedSet.includes(cell) || cell.value > 0)
+			return;
+
+		let g = currentCell.g + dist(cell.x, cell.y, currentCell.x, currentCell.y);
+
+		// Is this a better path than before?
+		let newPath = false;
+		if (openSet.includes(cell)) {
+			if (g < cell.g) {
+				cell.g = g;
+				newPath = true;
+			}
+		} else {
+			cell.g = g;
+			newPath = true;
+			openSet.push(cell);
+		}
+		// Yes, it's a better path
+		if (newPath) {
+			cell.f = cell.g + dist(cell.x, cell.y, endCell.x, endCell.y);
+			cell.previous = currentCell;
 		}
 	}
 }

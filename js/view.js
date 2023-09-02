@@ -37,9 +37,10 @@ class View {
 		let i = 0;
 		for (let y = 0; y < map.height; y++) {
 			for (let x = 0; x < map.width; x++) {
-				const v = map.values[i];
+				const v = map.cells[x][y].value;
 				if (v > 0) {
-					fill(200, 200, 200, v / 1000 * 100);
+//					fill(200, 200, 200, v / 1000 * 100);
+					fill(200, 200, 200);
 
 					rect(x * r, 
 						y * r, 
@@ -59,49 +60,48 @@ class View {
 		push();
 		rotate(drone.velocity.heading());
 	
+		let c;
 		if (drone.state == 'dead') {
-			stroke(100);
+			c = 100;
 		} else {
-			stroke(0);
+			c = 0;
 		}
-	
+
+		stroke(c);
 		strokeWeight(0.4);
 		line( 8, -8, -8, 8);
 		line(-8, -8,  8, 8);
 	
-		fill(0);
+		fill(c);
 		ellipse(-8, -8, 4);
 		ellipse(-8, 8, 4);
 		ellipse(8, -8, 4);
 		ellipse(8, 8, 4);
 	
 		noFill();
-		stroke(100, 100, 100, 200);
+		stroke(c, c, c, 200);
 		arc(-8, -8, 16, 16, PI / 180 * 130, PI / 180 * 320);
 		arc(-8, 8, 16, 16, PI / 180 * 40, PI / 180 * 230);
 		arc(8, 8, 16, 16, PI / 180 * 310, PI / 180 * 140);
 		arc(8, -8, 16, 16, PI / 180 * 220, PI / 180 * 50);
-		stroke(100, 100, 100, 50);
+		stroke(c, c, c, 50);
 		arc(-8, -8, 16, 16, PI / 180 * 320, PI / 180 * 130);
 		arc(-8, 8, 16, 16, PI / 180 * 230, PI / 180 * 40);
 		arc(8, 8, 16, 16, PI / 180 * 140, PI / 180 * 310);
 		arc(8, -8, 16, 16, PI / 180 * 50, PI / 180 * 220);
 	
-		let c;
-		if (drone.state == 'dead') {
-			c = 100;
-		} else {
-			c = lerpColor(color(255, 0, 0), color(0, 255, 0), drone.charge / 100.0);
-		}
-	
 		pop();
 
-		noStroke();
-		fill(c);
-		rect(-20, 24, 40 * drone.charge / 100.0, 4);
-		stroke(0);
-		noFill();
-		rect(-20, 24, 40, 4);
+		if (drone.state != 'dead') {
+			c = lerpColor(color(255, 0, 0), color(0, 255, 0), drone.charge / 100.0);
+
+			noStroke();
+			fill(c);
+			rect(-20, 24, 40 * drone.charge / 100.0, 4);
+			stroke(0);
+			noFill();
+			rect(-20, 24, 40, 4);
+		}
 
 		if (drone == selectedDrone) {
 			fill(0, 0, 0, 0);
