@@ -119,7 +119,7 @@ function mouseDragged() {
 		view.deltaY = mouseY - view.offsetY;
 	}
 
-	return false;
+//	return false;
 }
 
 function mouseReleased() {
@@ -176,7 +176,7 @@ function updateDisplays() {
 
 	if (selectedDrone)
 	{
-		droneDataDiv.style.display = null;
+//		droneDataDiv.style.display = null;
 		droneIdDisplay.innerHTML = selectedDrone.id;
 		droneStateDisplay.innerHTML = selectedDrone.state;
 		dronePositionDisplay.innerHTML = formatVector(selectedDrone.position);
@@ -184,7 +184,7 @@ function updateDisplays() {
 		droneChargeDisplay.innerHTML = selectedDrone.charge.toFixed(1) + '%';
 		droneSiblingsCountDisplay.innerHTML = selectedDrone.siblings.length;
 	} else {
-		droneDataDiv.style.display = 'none';
+//		droneDataDiv.style.display = 'none';
 	}
 }
 
